@@ -1,15 +1,32 @@
 # http://www.devdaily.com/blog/post/ruby/using-activerecord-without-rails
 # http://www.themomorohoax.com/2009/03/15/activerecord-sqlite-in-memory-db-without-rails
+# http://blog.aizatto.com/2007/05/27/activerecord-migrations-without-rails/
+
+# http://github.com/dcparker/ruby-gmail
+
 require 'rubygems'
 gem 'activerecord'
 require 'yaml'
 
 require 'activerecord'
 
-#require 'zipruby'
+SMS_DATA_DIR = 'sms/'
+
+#read sms conf like file password, o2online data etc. (hidden)
+passwords = YAML::load(File.open('config/passwords.yml'))
+
+dbconf = YAML::load(File.open('config/database.yml'))  
+ActiveRecord::Base.establish_connection(dbconf) 
+
+ActiveRecord::Base.logger = Logger.new(File.open('log/database.log', 'a')) 
 
 #check unless sms data exits?
-# -> extract files
+unless File.directory? SMS_DATA_DIR
+  puts "couldn't find any SMS DATA #{SMS_DATA_DIR}"
+  exit
+end
+
+
 
 #for each file, 
 # get parsing pattern
@@ -26,37 +43,29 @@ require 'activerecord'
 
 # get sent messages from o2online.de
 # parse, save to DB
-# 
+# or parse, save to file, outsurce to difernt project (likely!!)
+# -> gem!!!
 
 #find threads in between SMS e.b. if response is within 1 day!? or ask?
 
+# connect to gmail 
+# go to label
+# get last timestamp??
 
+# save sms to mail, mark as gmail saved, etc. mail id??
 
-#Zip::Archive.open('sms_data.zip') do |ar|
-#  n = ar.num_files # number of entries
-#
-#  n.times do |i|
-#    file_name = ar.get_name(i) # get entry name from archive
-#    
-#    puts file_name
-#    
-#    # open entry
-#    # ar.fopen(entry_name) do |f| # or ar.fopen(i) do |f|
-#    #   name = f.name           # name of the file
-#    #   size = f.size           # size of file (uncompressed)
-#    #   comp_size = f.comp_size # size of file (compressed)
-#    # 
-#    #   content = f.read # read entry content
-#    # end
-#  end
-#
-#end
-#
-#dbconf = YAML::load(File.open('config/database.yml'))  
-#ActiveRecord::Base.establish_connection(dbconf) 
-#ActiveRecord::Base.logger = Logger.new(File.open('log/database.log', 'a')) 
-#
 #ActiveRecord::Migrator.up('db/migrate')
 #
 #class Entry < ActiveRecord::Base
 #end
+
+
+# sender_name
+# sender_tel
+# date
+# message
+# mail_id
+# complete??
+# parent_msg_id
+# 
+
