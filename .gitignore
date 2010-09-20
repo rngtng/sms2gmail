@@ -1,3 +1,5 @@
 .DS_Store
 sms/
 config/passwords.yml
+log/database.log
+.rvmrc

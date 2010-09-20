@@ -1,4 +1,4 @@
-:adapter  "mysql"
-:host "localhost"
-:username  "root"
-:database "sms2gmail"
+:adapter:  "mysql"
+:host: "localhost"
+:username:  "root"
+:database: "sms2gmail"
