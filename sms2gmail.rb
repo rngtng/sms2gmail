@@ -125,16 +125,3 @@ end
 #class Entry < ActiveRecord::Base
 #end
 
-
-# sender_name
-# sender_tel
-# receiver_name
-# receiver_tel
-# date
-# message
-# mail_id
-# source
-# complete??
-# parent_msg_id
-#
-
